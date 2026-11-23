@@ -1,10 +1,10 @@
-id: 01a2088c-e087-72fb-bdb8-324702b5cda4
+id: 01a2092e-29ef-7004-8fb4-93357f492f31
 version: 1
 name: Template Mock
-slug: new-mock-8534f
+slug: new-mock-6ca26
 enableSession: true
 protocol: http
-port: 4500
+port: 3001
 autoRestartOnChange: true
 logging:
   level: verbose

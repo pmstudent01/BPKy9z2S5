@@ -232,7 +232,7 @@ description: |-
 variables:
   baseUrl: "{{baseUrl}}"
 auth:
-  - id: 739e2657-63d9-4ccf-bf5c-2da8c7dba9b4
+  - id: 9ad31345-6211-43ce-a972-642baf73e9ab
     type: apikey
     name: apikey auth
     credentials:

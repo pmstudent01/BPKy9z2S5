@@ -1,6 +1,6 @@
 $kind: collection
 auth:
-  - id: 2ad82ad7-82e1-47d2-a37b-42e926d0872b
+  - id: 3bd53f9c-1316-46d6-ab83-1251b108a4f9
     type: apikey
     name: apikey auth
     credentials:

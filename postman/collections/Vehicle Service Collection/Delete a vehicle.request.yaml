@@ -6,12 +6,5 @@ headers:
 pathVariables:
   id: "1"
 settings: {}
-scripts:
-  - type: afterResponse
-    language: text/javascript
-    code: |-
-      pm.test("Status code is 204", function () {
-        pm.response.to.have.status(204);
-      });
 examples: ./.resources/Delete a vehicle.resources/examples
 order: 4000

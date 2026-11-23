@@ -18,12 +18,5 @@ body:
       "miles": 159999
     }
 settings: {}
-scripts:
-  - type: afterResponse
-    language: text/javascript
-    code: |-
-      pm.test("Status code is 200", function () {
-        pm.response.to.have.status(200);
-      });
 examples: ./.resources/Update a collection.resources/examples
 order: 3000

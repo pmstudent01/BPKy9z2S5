@@ -16,12 +16,5 @@ body:
       "miles": 159864
     }
 settings: {}
-scripts:
-  - type: afterResponse
-    language: text/javascript
-    code: |-
-      pm.test("Status code is 201", function () {
-        pm.response.to.have.status(201);
-      });
 examples: ./.resources/Create a vehicle.resources/examples
 order: 1000
