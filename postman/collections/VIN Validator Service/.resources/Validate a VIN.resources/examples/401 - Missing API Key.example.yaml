@@ -1,0 +1,31 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/vin/validate/:vin"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: vin
+      value: "{{wildcard}}"
+      description: The Vehicle Identifcation Number to be validated.
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "You must provide a valid API key to access this endpoint."
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+order: 2000
