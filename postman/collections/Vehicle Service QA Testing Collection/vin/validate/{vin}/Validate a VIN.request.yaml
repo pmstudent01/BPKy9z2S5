@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{baseUrl}}/vin/validate/:vin"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: vin
+    value: 1G4HC5EM7BU118847
+    description: The Vehicle Identifcation Number to be validated.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+settings: {}
+examples: ./.resources/Validate a VIN.resources/examples
+order: 1000

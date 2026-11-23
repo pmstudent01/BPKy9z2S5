@@ -1,0 +1,31 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/vin/validate/:vin"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    - key: vin
+      value: 1G4HC5EM7BU118847
+      description: The Vehicle Identifcation Number to be validated.
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "message": "Valid VIN."
+      }
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+order: 1000

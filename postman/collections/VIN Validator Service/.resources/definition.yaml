@@ -1,0 +1,240 @@
+$kind: collection
+description: |-
+  ## Overview
+
+  The **VIN Validator Service** API validates a Vehicle Identification Number (VIN) and returns decoded vehicle information (where available). Use this collection to:
+
+  - Send a VIN for validation/decoding
+      
+  - Understand common error responses (e.g., missing API key)
+      
+  - Troubleshoot environment and auth setup issues in Postman
+      
+
+  ---
+
+  ## Quickstart
+
+  1. **Activate the environment**: select **Demo mock** (or your course-provided environment) so `{{baseUrl}}` resolves.
+      
+  2. **Store your API key in Vault** as `apiKey`.
+      
+  3. Send the primary VIN validation request(s) in this collection.
+      
+
+  ---
+
+  ## Setup: API Key (required)
+
+  This collection uses **API Key auth** via the header:
+
+  ``` http
+  X-API-Key: {{vault:apiKey}}
+
+   ```
+
+  ### Step-by-step
+
+  1. **Retrieve your API key** from the **student instruction guide**.
+      
+  2. In Postman, open **Vault** and add a secret:
+      - **Key**: `apiKey`
+          
+      - **Value**: _(paste the key from the student guide)_
+          
+  3. Verify the collection is configured to send the key:
+      - Open the collection **VIN Validator Service** → **Authorization** tab
+          
+      - Auth type: **API Key**
+          
+      - **Key**: `X-API-Key`
+          
+      - **Value**: `{{vault:apiKey}}`
+          
+      - **Add to**: **Header**
+          
+
+  ### Notes
+
+  - Using Vault prevents the key from being stored directly in the collection or environment.
+      
+  - Requests should **inherit auth** from the collection unless explicitly overridden.
+      
+
+  ---
+
+  ## Common requests
+
+  Typical workflow in this collection:
+
+  1. **Validate / Decode VIN**
+      
+      - Provide a VIN and send the request.
+          
+      - Review the response and any decoded fields.
+          
+  2. **Error examples**
+      
+      - **401 - Missing API Key**: what happens when `X-API-Key` is not sent.
+          
+      - **500 - Unexpected error**: example of a server-side failure response.
+          
+
+  ---
+
+  ## VIN anatomy: how to read a VIN (17 characters)
+
+  A VIN is a standardized **17-character** identifier. It is typically split into three major sections:
+
+  ### 1) WMI — World Manufacturer Identifier (positions 1–3)
+
+  Identifies the manufacturer and country/region.
+
+  - **1st character**: region/country
+      
+  - **2nd character**: manufacturer
+      
+  - **3rd character**: vehicle type or manufacturing division
+      
+
+  ### 2) VDS — Vehicle Descriptor Section (positions 4–9)
+
+  Describes key vehicle attributes (varies by manufacturer), commonly including:
+
+  - body style
+      
+  - engine type
+      
+  - restraint system
+      
+  - model/series
+      
+
+  **Position 9** is the **check digit** in many regions (notably North America). It is calculated from the other characters to help detect typos.
+
+  ### 3) VIS — Vehicle Identifier Section (positions 10–17)
+
+  Identifies a specific vehicle and production details.
+
+  - **Position 10**: model year (encoded)
+      
+  - **Position 11**: assembly plant
+      
+  - **Positions 12–17**: sequential production number
+      
+
+  ### Common VIN rules / gotchas
+
+  - VINs are **17 characters** long (shorter/longer usually indicates an invalid VIN).
+      
+  - VINs typically exclude the letters **I**, **O**, and **Q** to avoid confusion with **1** and **0**.
+      
+  - VIN decoding is not perfectly uniform globally—some attributes can be manufacturer-specific.
+      
+
+  ---
+
+  ## Troubleshooting
+
+  ### 401 Unauthorized: Missing API Key
+
+  **Symptoms**
+
+  - Response status **401**
+      
+  - Message similar to “You must provide a valid API key”
+      
+
+  **Most common causes**
+
+  - Vault secret `apiKey` was never created.
+      
+  - The request is not inheriting collection auth (auth overridden at request level).
+      
+  - Header was not added (e.g., "Add to" not set to Header).
+      
+
+  **Fix checklist**
+
+  1. Confirm Vault has `apiKey` set.
+      
+  2. Confirm collection auth uses:
+      - Key: `X-API-Key`
+          
+      - Value: `{{vault:apiKey}}`
+          
+  3. Open the failing request → **Authorization**:
+      - Set to **Inherit auth from parent** (recommended).
+          
+
+  ---
+
+  ### `{{baseUrl}}` not resolved / request fails because environment isn’t active
+
+  **Symptoms**
+
+  - URL shows `{{baseUrl}}` literally (unresolved)
+      
+  - Error like “Could not resolve host” or invalid URL
+      
+
+  **Cause**  
+  The environment variable `baseUrl` is defined in an environment, but **no environment is selected** (or a different environment is selected that doesn’t define `baseUrl`).
+
+  **Fix**
+
+  1. In the top-right environment selector, choose **Demo mock** (or the course environment that defines `baseUrl`).
+      
+  2. Confirm the environment includes a variable named:
+      - `baseUrl`
+          
+
+  ---
+
+  ## Debugging with Postman Console (what was actually sent)
+
+  When troubleshooting auth, variables, or unexpected responses, use the **Postman Console** to inspect the real request that went over the wire.
+
+  ### What to check
+
+  - **Final URL** (after variable substitution)
+      
+  - **Request headers** (confirm `X-API-Key` is present)
+      
+  - **Request body** / query params (confirm the VIN value and formatting)
+      
+  - Any **console warnings** about unresolved variables
+      
+
+  ### How to use it
+
+  1. Open **View → Show Postman Console**.
+      
+  2. Send the request again.
+      
+  3. Click the request entry in the console to inspect:
+      - URL
+          
+      - headers
+          
+      - body
+          
+      - response details
+          
+
+  ---
+
+  ## Support / course notes
+
+  - If you still receive a 401 after completing setup, re-check that the **Vault secret name** is exactly `apiKey` and that requests inherit collection auth.
+      
+  - If `{{baseUrl}}` remains unresolved, verify the correct environment is selected and that `baseUrl` exists in that environment.
+variables:
+  baseUrl: "{{baseUrl}}"
+auth:
+  - id: 739e2657-63d9-4ccf-bf5c-2da8c7dba9b4
+    type: apikey
+    name: apikey auth
+    credentials:
+      value: "{{vault:apiKey}}"
+      key: X-API-Key
